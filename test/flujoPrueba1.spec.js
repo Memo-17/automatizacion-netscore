@@ -1,15 +1,10 @@
 //const { test, expect } = require('@playwright/test');
 import { test, expect } from '@playwright/test';
 import { config } from '../config/env.config.js';
-
-// test.use({ 
-//   headless: true, 
-//   ignoreHTTPSErrors: true 
-// });
   
   test('flujo completo de calificación', async ({ page }) => {
 
-    await page.goto('https://172.24.80.51/netscore/#/auth/login');
+    await page.goto(config.baseUrl);
     await page.getByRole('textbox', { name: 'Ingrese su usuario' }).click();
     await page.getByRole('textbox', { name: 'Ingrese su usuario' }).fill(config.username);
     await page.getByRole('textbox', { name: 'Ingrese su contraseña' }).click();
