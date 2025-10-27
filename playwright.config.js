@@ -5,11 +5,27 @@ export default defineConfig({
   testDir: './test',
   retries: 0,
   use: {
+    launchOptions: {
+      args: ['--start-maximized'],
+      
+    },
     headless: false,
     screenshot: 'on', 
-    video: 'on', 
     trace: 'on', 
     ignoreHTTPSErrors: true,
+    video:{
+      mode: 'on',
+      size: {width: 1280, height: 720},
+    },
+    // Asegura que Playwright no fuerce un viewport fijo
+    viewport: null,
   },
-  reporter: [['html', { open: 'never' }]]
+  
+  reporter: 'html',
+
+  projects: [
+    {
+      name: 'chromium',
+    },
+  ],
 });

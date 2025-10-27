@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "AUTOMATIZACION_NETSCORE",
+  "name": "automatizacion-netscore",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,8 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --debug",
-    "report": "npx playwright show-report"
+    "report": "npx playwright show-report",
+    "menu": "node test/menu_plantilla.js"
   },
   "keywords": [],
   "author": "",
