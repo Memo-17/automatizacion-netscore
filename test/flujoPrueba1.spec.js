@@ -1,6 +1,10 @@
 //const { test, expect } = require('@playwright/test');
 import { test, expect } from '@playwright/test';
 import { config } from '../config/env.config.js';
+
+  const month = [
+    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+  ]
   
   test('flujo completo de calificación', async ({ page }) => {
 
@@ -17,8 +21,18 @@ import { config } from '../config/env.config.js';
     await page.getByRole('option', { name: 'Basantes Cadena Jordan' }).locator('div').first().click();
     await page.locator('app-main-header button').click();
   
-    // Calificación 1
-    await page.getByText('May', { exact: true }).click();
+    for (const m of month) {
+      const monthText = await page.getByText(m, { exact: true });
+      if (await monthText.isEnabled()) {
+        const className = await monthText.getAttribute('class');
+        if (className && className.includes('p-disabled ng-star-inserted')) {
+          continue;
+        }
+        await monthText.click();
+        break;
+      }
+    }
+
     await page.locator('app-form-header p-calendar').getByRole('button').click();
     await page.getByText('21', { exact: true }).click();
     await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill('gdfghg');
