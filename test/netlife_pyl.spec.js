@@ -5,7 +5,7 @@ import { config } from '../config/env.config.js';
     'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
   ]
   
-  test('Flujo completo de calificación EC_CEAC', async ({ page }) => {
+  test('Flujo completo de calificación NL_PYL', async ({ page }) => {
 
     await page.goto(config.baseUrl);
     await page.getByRole('textbox', { name: 'Ingrese su usuario' }).click();
@@ -15,10 +15,10 @@ import { config } from '../config/env.config.js';
     await page.getByRole('button', { name: 'Iniciar sesión' }).click();
     await page.getByRole('link', { name: ' Calificaciones' }).click();
     await page.getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'ECUANET - CEAC' }).click();
-    console.log('Seleccionado el módulo ECUANET - CEAC');
+    await page.getByRole('option', { name: 'NETLIFE - PYL' }).click();
+    console.log('Seleccionado el módulo NETLIFE - PYL');
     await page.locator('p-dropdown').filter({ hasText: 'Buscar agente' }).getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Calderon Moran Carlos' }).locator('div').first().click();
+    await page.getByRole('option', { name: 'Guala Fonseca Jefferson' }).locator('div').first().click();
     console.log('Agente seleccionado con éxito');
     await page.locator('app-main-header button').click();
   
@@ -35,10 +35,8 @@ import { config } from '../config/env.config.js';
     }
 
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
+    await page.locator('(//span[@draggable=\'false\'])[25]').click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('prueba_login');
-    await page.locator('p-dropdown[title="undefined"] div span').click();
-    await page.getByRole('option', { name: 'Activar correo electronico' }).click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill('123456789');
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
@@ -49,10 +47,8 @@ import { config } from '../config/env.config.js';
   
     // Calificación 2
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
+    await page.locator('(//span[@draggable=\'false\'])[25]').click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('prueba_login');
-    await page.locator('p-dropdown[title="undefined"] div span').click();
-    await page.getByRole('option', { name: 'Informacion de planes y productos' }).click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill('123456789');
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
@@ -63,10 +59,8 @@ import { config } from '../config/env.config.js';
   
     // Calificación 3
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
+    await page.locator('(//span[@draggable=\'false\'])[25]').click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('prueba_login');
-    await page.locator('p-dropdown[title="undefined"] div span').click();
-    await page.getByRole('option', { name: 'Activar IP fija adicional' }).click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill('123456789');
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
@@ -77,10 +71,8 @@ import { config } from '../config/env.config.js';
   
     // Calificación 4
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
+    await page.locator('(//span[@draggable=\'false\'])[25]').click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('prueba_login');
-    await page.locator('p-dropdown[title="undefined"] div span').click();
-    await page.getByRole('option', { name: 'Reactivación de servicio' }).click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill('123456789');
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
@@ -91,10 +83,8 @@ import { config } from '../config/env.config.js';
   
     // Calificación 5
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
+    await page.locator('(//span[@draggable=\'false\'])[25]').click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('prueba_login');
-    await page.locator('p-dropdown[title="undefined"] div span').click();
-    await page.getByRole('option', { name: 'Atenuación de UM' }).click();
     await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill('123456789');
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
