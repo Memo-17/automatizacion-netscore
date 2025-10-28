@@ -8,6 +8,7 @@ export const config = {
   username: process.env.NETSCORE_USERNAME,
   password: process.env.NETSCORE_PASSWORD,
   baseUrl: process.env.NETSCORE_URL,
+  comentario: process.env.NETSCORE_COMENTARIO,
   
   // Configuraciones adicionales (opcionales)
   timeout: parseInt(process.env.TIMEOUT) || 30000,
@@ -16,7 +17,7 @@ export const config = {
 };
 
 // Validar que las variables críticas estén presentes
-const requiredVars = ['username', 'password', 'baseUrl'];
+const requiredVars = ['username', 'password', 'baseUrl', 'comentario'];
 const missingVars = requiredVars.filter(key => !config[key]);
 
 if (missingVars.length > 0) {
@@ -25,6 +26,7 @@ if (missingVars.length > 0) {
     `Asegúrate de tener un archivo .env con las variables:\n` +
     `NETSCORE_USERNAME=tu_usuario\n` +
     `NETSCORE_PASSWORD=tu_password\n` +
-    `NETSCORE_URL=https://172.24.80.51/netscore/#/auth/login`
+    `NETSCORE_URL=https://172.24.80.51/netscore/#/auth/login\n` +
+    `NETSCORE_COMENTARIO=tu_comentario\n`
   );
 }
