@@ -35,55 +35,60 @@ import { config } from '../config/env.config.js';
     }
 
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
-    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('123456789');
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.callerId);
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill('comentario_pruebas');
+    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
     console.log('Guardada la calificación 1');
   
     // Calificación 2
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
-    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('123456789');
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.callerId);
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill('comentario_pruebas');
+    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
     console.log('Guardada la calificación 2');
   
     // Calificación 3
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
-    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('123456789');
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.callerId);
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill('comentario_pruebas');
+    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
     console.log('Guardada la calificación 3');
   
     // Calificación 4
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
-    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('123456789');
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.callerId);
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill('comentario_pruebas');
+    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
     console.log('Guardada la calificación 4');
   
     // Calificación 5
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.getByText('22', { exact: true }).click();
-    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill('123456789');
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.callerId);
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
     await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill('comentario_pruebas');
+    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
     const botonGuardarFinal = page.getByRole('button', { name: ' Guardar' });
