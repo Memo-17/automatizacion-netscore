@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { config } from '../config/env.config.js';
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
+import { resolve } from 'node:path';
 
   const month = [
     'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
@@ -41,30 +42,47 @@ import { stdin as input, stdout as output } from 'node:process';
     await page.getByRole('option', { name: 'Activar correo electronico' }).click();
     await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
 
+    //await page.pause();
+
     //declarar variables
     let calificacionTexto = '';
+    
+    console.log('Ingrese una opción de calificación:');
+        console.log('1) Aprobado');
+        console.log('2) Parcial');
+        console.log('3) Malo');
+    
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    
+    //const question = (q) => new Promise((res) => rl.question(q, res));
 
-    console.log('Ingrese la calificación deseada para la prueba del 1 al 3: \n 1. Aprobado \n 2. Regular \n 3. Mal');
-    const rl = readline.createInterface({ input, output });
+    async function askQuestion(query){
+      return new Promise(resolve => rl.question(query, ans => resolve(ans)));
+    }
 
-    //Leer la opción ingresada por consola
-    const opcion = await rl.question('Ingrese su opción: ');
-    rl.close();
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    //Asignar texto según opción ingresada
-    switch(opcion.trim()){
-      case '1':
-        calificacionTexto = 'Aprobado';
-        break;
-      case '2':
-        calificacionTexto = 'Parcialmente Aprobado';
-        break;
-      case '3':
-        calificacionTexto = 'Malo';
-        break;
-      default:
-        console.log('Opción inválida. Se asignará "Malo" por defecto.');
-        calificacionTexto = 'Malo';
+    //const calificacion = (await question('Ingrese su opción (1-3): '));
+
+    if (calificacion === '1') {
+      calificacionTexto = 'Aprobado';
+      console.log(calificacionTexto);
+      rl.close(); 
+    } else if (calificacion === '2') {
+      calificacionTexto = 'Parcial';
+      console.log(calificacionTexto);
+      rl.close();
+    } else if (calificacion === '3') {
+      calificacionTexto = 'Malo';
+      console.log(calificacionTexto);
+      rl.close();
+    } else {
+      console.log('Opción inválida. Se asignará "Malo" por defecto.');
+      calificacionTexto = 'Malo';
+      rl.close();
     }
 
     //Tomar la opción ingresada por consola para el siguiente if
@@ -83,59 +101,59 @@ import { stdin as input, stdout as output } from 'node:process';
     console.log('Guardada la calificación 1');
   
     // Calificación 2
-    await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Informacion de planes y' }).click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
-    await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
-    await page.getByRole('button', { name: ' Guardar' }).click();
-    await page.getByRole('button', { name: 'Sí' }).click();
-    console.log('Guardada la calificación 2');
+    // await page.locator('app-form-header p-calendar').getByRole('button').click();
+    // await page.locator('(//span[@draggable=\'false\'])[25]').click();
+    // await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
+    // await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
+    // await page.getByRole('option', { name: 'Informacion de planes y' }).click();
+    // await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+    // await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
+    // await page.getByRole('option', { name: 'Excelente' }).click();
+    // await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
+    // await page.getByRole('button', { name: ' Guardar' }).click();
+    // await page.getByRole('button', { name: 'Sí' }).click();
+    // console.log('Guardada la calificación 2');
   
-    // Calificación 3
-    await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Reactivación de servicio' }).locator('div').first().click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
-    await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
-    await page.getByRole('button', { name: ' Guardar' }).click();
-    await page.getByRole('button', { name: 'Sí' }).click();
-    console.log('Guardada la calificación 3');
+    // // Calificación 3
+    // await page.locator('app-form-header p-calendar').getByRole('button').click();
+    // await page.locator('(//span[@draggable=\'false\'])[25]').click();
+    // await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
+    // await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
+    // await page.getByRole('option', { name: 'Reactivación de servicio' }).locator('div').first().click();
+    // await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+    // await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
+    // await page.getByRole('option', { name: 'Excelente' }).click();
+    // await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
+    // await page.getByRole('button', { name: ' Guardar' }).click();
+    // await page.getByRole('button', { name: 'Sí' }).click();
+    // console.log('Guardada la calificación 3');
   
-    // Calificación 4
-    await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByText('Actualizar Datos', { exact: true }).click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
-    await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
-    await page.getByRole('button', { name: ' Guardar' }).click();
-    await page.getByRole('button', { name: 'Sí' }).click();
-    console.log('Guardada la calificación 4');
+    // // Calificación 4
+    // await page.locator('app-form-header p-calendar').getByRole('button').click();
+    // await page.locator('(//span[@draggable=\'false\'])[25]').click();
+    // await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
+    // await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
+    // await page.getByText('Actualizar Datos', { exact: true }).click();
+    // await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+    // await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
+    // await page.getByRole('option', { name: 'Excelente' }).click();
+    // await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
+    // await page.getByRole('button', { name: ' Guardar' }).click();
+    // await page.getByRole('button', { name: 'Sí' }).click();
+    // console.log('Guardada la calificación 4');
   
-    // Calificación 5
-    await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByText('Retencion de cliente').click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
-    await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
-    await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
-    await page.getByRole('button', { name: ' Guardar' }).click();
-    await page.getByRole('button', { name: 'Sí' }).click();
-    const botonGuardarFinal = page.getByRole('button', { name: ' Guardar' });
-    console.log('Guardada la calificación 5');
+    // // Calificación 5
+    // await page.locator('app-form-header p-calendar').getByRole('button').click();
+    // await page.locator('(//span[@draggable=\'false\'])[25]').click();
+    // await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
+    // await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
+    // await page.getByText('Retencion de cliente').click();
+    // await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+    // await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
+    // await page.getByRole('option', { name: 'Excelente' }).click();
+    // await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
+    // await page.getByRole('button', { name: ' Guardar' }).click();
+    // await page.getByRole('button', { name: 'Sí' }).click();
+    // const botonGuardarFinal = page.getByRole('button', { name: ' Guardar' });
+    // console.log('Guardada la calificación 5');
   });

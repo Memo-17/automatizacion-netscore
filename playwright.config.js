@@ -2,6 +2,7 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
+  //testDir: './test-cavs',
   testDir: './test',
   retries: 0,
   use: {
