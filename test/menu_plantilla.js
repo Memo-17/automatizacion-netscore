@@ -9,17 +9,17 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 const testDir = path.resolve(projectRoot, "test");
 
-// Detecta automáticamente los archivos .spec.js (máx. 14)
+// Detecta automáticamente los archivos .spec.js (máx. 16)
 function discoverSpecs() {
   if (!fs.existsSync(testDir)) return [];
   const files = fs.readdirSync(testDir).filter((f) => f.endsWith(".spec.js"));
   files.sort((a, b) => a.localeCompare(b));
-  return files.slice(0, 14);
+  return files.slice(0, 16);
 }
 
 function buildOptionMap(specFiles) {
   const map = {};
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < 16; i++) {
     map[i + 1] = specFiles[i] || "";
   }
   return map;
@@ -27,7 +27,7 @@ function buildOptionMap(specFiles) {
 
 function printMenu(optionToSpec) {
   console.log("================ MENÚ DE PRUEBAS ================");
-  for (let i = 1; i <= 14; i++) {
+  for (let i = 1; i <= 16; i++) {
     const spec = optionToSpec[i] || "(sin asignar)";
     console.log(`${String(i).padStart(2, " ")}) ${spec || "(sin asignar)"}`);
   }
@@ -56,7 +56,7 @@ async function main() {
   const question = (q) => new Promise((res) => rl.question(q, res));
 
   printMenu(optionToSpec);
-  const answer = (await question("Elige una opción (1-14) o q para salir: "))
+  const answer = (await question("Elige una opción (1-16) o q para salir: "))
     .trim()
     .toLowerCase();
 
@@ -67,7 +67,7 @@ async function main() {
   }
 
   const choice = Number(answer);
-  if (!Number.isInteger(choice) || choice < 1 || choice > 14) {
+  if (!Number.isInteger(choice) || choice < 1 || choice > 16) {
     console.error("Opción no válida.");
     rl.close();
     process.exit(1);

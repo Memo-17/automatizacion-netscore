@@ -2,8 +2,13 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './test',
-  retries: 0,
+  testDir: './test-cavs',
+  //testDir: './test',
+
+  //aumentar tiempo de espera de las pruebas
+  timeout: 60000,
+  retries: 3,
+
   use: {
     launchOptions: {
       args: ['--start-maximized'],
@@ -15,7 +20,7 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     video:{
       mode: 'on',
-      size: {width: 1280, height: 720},
+      size: {width: 1285, height: 613},
     },
     // Asegura que Playwright no fuerce un viewport fijo
     viewport: null,
