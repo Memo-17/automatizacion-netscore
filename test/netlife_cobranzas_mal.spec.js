@@ -4,8 +4,23 @@ import { config } from '../config/env.config.js';
   const month = [
     'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
   ]
+
+  //funcion para calificación regular
+  const calificationRegular = async (page) => {
+    await page.locator("//app-form-body/div[2]/div[2]/p-dropdown[1]/div[1]/div[2]").click();
+    await page.getByRole('option', {name: 'No'}).click();
+    await page.locator("//app-form-body/div[4]/div[2]/p-dropdown[1]/div[1]/div[2]").click();
+    await page.getByRole('option', {name: 'No'}).click();
+    await page.locator("//app-form-body/div[6]/div[2]/p-dropdown[1]/div[1]/div[2]").click();
+    await page.getByRole('option', {name: 'No'}).click();
+
+    //Validar que se haya creado la calificación regular
+    await page.locator('input.p-inputtext.p-component.p-element.ng-untouched.ng-pristine.ng-valid.p-filled.text-red-400').textContent();
+    console.log('Calificación Mala validada con éxito');
+  }
+
   
-  test('Flujo completo de calificación NL_CSI', async ({ page }) => {
+  test('Flujo completo de calificación NL_COB', async ({ page }) => {
 
     await page.goto(config.baseUrl);
     await page.getByRole('textbox', { name: 'Ingrese su usuario' }).click();
@@ -15,9 +30,9 @@ import { config } from '../config/env.config.js';
     await page.getByRole('button', { name: 'Iniciar sesión' }).click();
     await page.getByRole('link', { name: ' Calificaciones' }).click();
     await page.getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'NETLIFE - CSI' }).click();
+    await page.getByRole('option', { name: 'NETLIFE - COBRANZAS' }).click();
     await page.locator('p-dropdown').filter({ hasText: 'Buscar agente' }).getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Basantes Cadena Jordan' }).locator('div').first().click();
+    await page.getByRole('option', { name: 'Chavez Morales Elkin' }).locator('div').first().click();
     await page.locator('app-main-header button').click();
   
     for (const m of month) {
@@ -33,11 +48,16 @@ import { config } from '../config/env.config.js';
     }
 
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Activar correo electronico' }).click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.loginCliente);
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill(config.callerId);
+
+    //Llamar a la función de calificación regular
+    await calificationRegular(page);
+
+    await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
+    await page.getByRole('option', { name: 'Mala' }).click();
     await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
@@ -45,13 +65,16 @@ import { config } from '../config/env.config.js';
   
     // Calificación 2
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Informacion de planes y' }).click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.loginCliente);
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill(config.callerId);
+
+    //Llamar a la función de calificación regular
+    await calificationRegular(page);
+
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
+    await page.getByRole('option', { name: 'Mala' }).click();
     await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
@@ -59,13 +82,16 @@ import { config } from '../config/env.config.js';
   
     // Calificación 3
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByRole('option', { name: 'Reactivación de servicio' }).locator('div').first().click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.loginCliente);
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill(config.callerId);
+
+    //Llamar a la función de calificación regular
+    await calificationRegular(page);
+
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
+    await page.getByRole('option', { name: 'Mala' }).click();
     await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
@@ -73,13 +99,16 @@ import { config } from '../config/env.config.js';
   
     // Calificación 4
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByText('Actualizar Datos', { exact: true }).click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.loginCliente);
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill(config.callerId);
+
+    //Llamar a la función de calificación regular
+    await calificationRegular(page);
+
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
+    await page.getByRole('option', { name: 'Mala' }).click();
     await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
@@ -87,16 +116,20 @@ import { config } from '../config/env.config.js';
   
     // Calificación 5
     await page.locator('app-form-header p-calendar').getByRole('button').click();
-    await page.locator('(//span[@draggable=\'false\'])[25]').click();
-    await page.locator('div:nth-child(7) > .flex > .p-inputtext').fill(config.loginCliente);
-    await page.getByTitle('undefined').getByLabel('dropdown trigger').click();
-    await page.getByText('Retencion de cliente').click();
-    await page.locator('div:nth-child(9) > .flex > .p-inputtext').fill(config.callerId);
+        await page.locator('(//span[@draggable=\'false\'])[25]').click();
+
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[6]').fill(config.loginCliente);
+    await page.locator('(//input[@formcontrolname=\'valueKey\'])[7]').fill(config.callerId);
+
+    //Llamar a la función de calificación regular
+    await calificationRegular(page);
+
     await page.locator('#solucion').getByRole('button', { name: 'dropdown trigger' }).click();
-    await page.getByRole('option', { name: 'Excelente' }).click();
+    await page.getByRole('option', { name: 'Mala' }).click();
     await page.getByRole('textbox', { name: 'Escribe un comentario' }).fill(config.comentario);
     await page.getByRole('button', { name: ' Guardar' }).click();
     await page.getByRole('button', { name: 'Sí' }).click();
     const botonGuardarFinal = page.getByRole('button', { name: ' Guardar' });
     console.log('Guardada la calificación 5');
+
   });
